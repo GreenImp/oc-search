@@ -1,0 +1,5 @@
+{% if useAJAX %}
+  {{ form_ajax('onSearch', { id: 'site-search-form', update: {'siteSearch::results/default': '#site-search-results-section'} }) }}
+{% else %}
+  {{ form_open({ request: 'onSearch' }) }}
+{% endif %}

@@ -1,0 +1,20 @@
+<section id="site-search-results-section">
+  <header class="row">
+    <hgroup class="column">
+      <h2 class="subheader">
+        {{ 'Results'|_ }}
+        <small>
+          <span id="product-search-result-count">{{ __SELF__.count|default(0) }}</span>
+          {{ 'items'|_ }}
+        </small>
+      </h2>
+    </hgroup>
+  </header>
+
+
+  <div class="row">
+    <div class="column" id="site-search-results">
+      {% partial __SELF__ ~ "::results/list" %}
+    </div>
+  </div>
+</section>

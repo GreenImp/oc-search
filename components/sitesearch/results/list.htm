@@ -1,0 +1,17 @@
+{% if __SELF__.results == null %}
+  <p class="lead">
+    {{ 'Enter your search criteria'|_ }}
+  </p>
+{% elseif __SELF__.count > 0 %}
+  <ul>
+    {% for item in __SELF__.results %}
+      <li>
+        {% partial __SELF__ ~ "::results/item" item=item %}
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p class="lead">
+    {{ 'No Results'|_ }}
+  </p>
+{% endif %}

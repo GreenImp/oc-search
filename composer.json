@@ -1,0 +1,5 @@
+{
+  "require": {
+    "nqxcode/laravel-lucene-search": "2.2.*"
+  }
+}

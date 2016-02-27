@@ -1,0 +1,8 @@
+{% partial __SELF__ ~ "::form/open" useAJAX=__SELF__.ajax %}
+  <input type="text" name="terms" value="{{ __SELF__.terms }}" placeholder="Search terms...">
+
+  <button type="submit">
+    <span class="show-for-sr">Search</span>
+    <i class="fa fa-search"></i>
+  </button>
+{% partial __SELF__ ~ "::form/close" %}
