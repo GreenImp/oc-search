@@ -1,5 +1,5 @@
 {% if useAJAX %}
-  {{ form_ajax('onSearch', { id: 'site-search-form', update: {'siteSearch::results/default': '#site-search-results-section'} }) }}
+  {{ form_ajax('siteSearch::onSearch', { id: 'site-search-form', update: {'siteSearch::results/default': resultsSelector|default('#site-search-results-section')} }) }}
 {% else %}
-  {{ form_open({ request: 'onSearch' }) }}
+  {{ form_open({ request: 'siteSearch::onSearch' }) }}
 {% endif %}
