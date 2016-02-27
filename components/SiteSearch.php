@@ -66,7 +66,9 @@ class SiteSearch extends ComponentBase{
     if($this->property('allowWildcards', true)){
       foreach($modelTerms as $k => $term){
         // lucene only allows wildcards on terms greater than 2 characters
-        $modelTerms[$k] = (strlen($term) > 2) ? $term . '*' : $term;
+        if(strlen($term) > 2){
+          $modelTerms[$k] = $term . '*';
+        }
       }
     }
 
