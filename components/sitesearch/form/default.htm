@@ -1,8 +1,14 @@
 {% partial __SELF__ ~ "::form/open" useAJAX=__SELF__.ajax %}
-  <input type="text" name="terms" value="{{ __SELF__.terms }}" placeholder="Search terms...">
+  <div class="row collapse postfix-round">
+    <div class="column small-9 medium-10 large-11">
+      <input type="text" name="terms" value="{{ __SELF__.terms }}" placeholder="Search terms...">
+    </div>
 
-  <button type="submit">
-    <span class="show-for-sr">Search</span>
-    <i class="fa fa-search"></i>
-  </button>
+    <div class="column small-3 medium-2 large-1">
+      <button type="submit" class="button postfix">
+        <span class="show-for-sr">Search</span>
+        <i class="fa fa-search"></i>
+      </button>
+    </div>
+  </div>
 {% partial __SELF__ ~ "::form/close" %}
