@@ -39,6 +39,22 @@ class Plugin extends PluginBase
     $alias->alias('Search', 'Nqxcode\LuceneSearch\Facade');
 
 
-    $search = $this->app['search'];
+    Event::listen('backend.form.extendFields', function($widget){
+      if (
+        !$widget->getController() instanceof \RainLab\Pages\Controllers\Index ||
+        !$widget->model instanceof \RainLab\Pages\Classes\MenuItem
+      ){
+        return;
+      }
+
+      $widget->addTabFields([
+        'viewBag[extraAttributes]' => [
+          'tab' => 'Attributes',
+          'label' => 'Extra',
+          'comment' => 'Enter any extra attrbutes that the menu item should have (ie. `data` attributes)',
+          'type' => 'text'
+        ]
+      ]);
+    });
   }
 }
