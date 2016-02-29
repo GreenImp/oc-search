@@ -1,5 +1,5 @@
 <a href="{{ item.url }}">
-  {{ item.name }}
+  {{ item.title|default(item.name) }}
 
   {{ html_limit(item.excerpt, 100, '...') }}
 </a>

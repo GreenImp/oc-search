@@ -3,13 +3,17 @@
     {{ 'Enter your search criteria'|_ }}
   </p>
 {% elseif __SELF__.count > 0 %}
-  <ul>
-    {% for item in __SELF__.results %}
-      <li>
-        {% partial __SELF__ ~ "::results/item" item=item %}
-      </li>
-    {% endfor %}
-  </ul>
+  {% for section, items in __SELF__.results %}
+    <h3>{{ section }}</h3>
+
+    <ul class="chevron">
+      {% for item in items %}
+        <li>
+          {% partial __SELF__ ~ "::results/item" item=item %}
+        </li>
+      {% endfor %}
+    </ul>
+  {% endfor %}
 {% else %}
   <p class="lead">
     {{ 'No Results'|_ }}
