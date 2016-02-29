@@ -85,9 +85,17 @@ class SiteSearch extends ComponentBase{
         break;
       case 'JorgeAndrade\Events\Models\Event':
         $item->name = $object->name;
+        // TODO - this needs to link to the actual item
         $item->url = $object->slug;
         $item->excerpt = !empty($object->excerpt) ? $object->excerpt : $object->description;
         $item->type = 'Shows';
+        break;
+      case 'Radiantweb\Problog\Models\Post':
+        $item->name = $object->title;
+        // TODO - this needs to link to the actual item
+        $item->url = $object->slug;
+        $item->excerpt = !empty($object->excerpt) ? $object->excerpt : $object->description;
+        $item->type = 'News';
         break;
       default:
         if(isset($object->title) && !empty($object->title)){
@@ -262,9 +270,22 @@ class SiteSearch extends ComponentBase{
 
     // loop through the results and add them to the list
     foreach($query->get() as $item){
-      $object = $this->convertToResultItem($item);
+      $results->push($this->convertToResultItem($item));
+    }
 
-      $results->push($object);
+
+    // search the blog
+    $blogPosts = \Radiantweb\Problog\Models\Post::
+      // only published posts
+      isPublished()
+      // filter by the search terms
+      ->filterBySearch($terms)
+      // order by published date (newest first)
+      ->orderBy('published_at', 'desc')
+      // get the results
+      ->get();
+    foreach($blogPosts as $post){
+      $results->push($this->convertToResultItem($post));
     }
 
     return $results;
