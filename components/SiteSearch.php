@@ -314,11 +314,22 @@ class SiteSearch extends ComponentBase{
    * @return \Illuminate\Support\Collection|null
    */
   public function results(){
-    // TODO - order results by type, in this order
-    // Products, Series groups, Series Ranges, Pages, News
+    // get the results
+    $results = $this->results;
 
-    // return the results grouped by their type
-    return !is_null($this->results) ? $this->results->groupBy('type') : null;
+    if(!is_null($results)){
+      $sortOrder = array_flip(['Series', 'Series groups', 'Products', 'Content', 'News', 'Shows', 'Other']);
+      // Group and sort the results by type
+      $results = array_filter(array_replace($sortOrder, $results->groupBy('type')->toArray()), function($var){
+        return is_array($var) || is_object($var);
+      });
+
+      // return the results
+      return $results;
+    }else{
+      // no results
+      return null;
+    }
   }
 
   /**
