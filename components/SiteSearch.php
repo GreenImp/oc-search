@@ -120,6 +120,11 @@ class SiteSearch extends ComponentBase{
         break;
     }
 
+    // ensure that the excerpt contains no html and convert to UTF-8 to avoid encoding issues with JSON
+    if(isset($item->excerpt)){
+      $item->excerpt = htmlentities(strip_tags($item->excerpt), ENT_COMPAT, 'UTF-8');;
+    }
+
     return $item;
   }
 
@@ -310,8 +315,8 @@ class SiteSearch extends ComponentBase{
     // get the pages
     $this->results = $this->results->merge($this->searchPages($terms));
 
-    // return the results
-    return $this->results;
+    // return the results (use function here so that results are grouped)
+    return $this->results();
   }
 
   /**
