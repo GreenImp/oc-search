@@ -6,6 +6,7 @@ use Cms\Classes\Page;
 use Cms\Classes\Theme;
 use Cms\Classes\ComponentBase;
 use Symfony\Component\Finder\Finder;
+use \Radiantweb\Problog\Models\Settings as ProblogSettingsModel;
 
 class SiteSearch extends ComponentBase{
   protected $results;
@@ -92,8 +93,7 @@ class SiteSearch extends ComponentBase{
         break;
       case 'Radiantweb\Problog\Models\Post':
         $item->name = $object->title;
-        // TODO - this needs to link to the actual item
-        $item->url = $object->slug;
+        $item->url = Page::url(ProblogSettingsModel::instance()->get('blogPost'), ['filter' => $object->categories->slug, 'slug' => $object->slug]);
         $item->excerpt = !empty($object->excerpt) ? $object->excerpt : $object->description;
         $item->type = 'News';
         break;
@@ -234,7 +234,7 @@ class SiteSearch extends ComponentBase{
   /**
    * Returns the class object for model search functionality
    *
-   * @return mixed
+   * @return \Nqxcode\LuceneSearch\Search
    */
   protected function getModelSearch(){
     if(is_null($this->modelSearch)){
